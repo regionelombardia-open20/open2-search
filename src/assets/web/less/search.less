@@ -1,0 +1,123 @@
+@import (optional) "../../vendor/lispa/amos-core/views/assets/web/css/less/variables.less";
+/**
+IMPORT AMOS-LAYOUT VARIABLES
+ */
+@import (optional) "../../vendor/lispa/amos-layout/src/assets/resources/base/less/variables.less";
+
+.page-header {
+  border-bottom: 0;
+}
+
+.toolbar-search {
+  .result_key {
+    font-size: 1.5em;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ededed;
+  }
+
+  .label-search {
+    font-weight: bold;
+    font-size: 1.5em;
+
+    @media(min-width: 768px) {
+      margin-top: 10px;
+      float: right;
+    }
+  }
+
+  button {
+    margin: 0;
+  }
+}
+
+.results-info {
+  margin: 20px 0;
+  font-size: 1.2em;
+}
+
+.container-searchBar {
+  background: @light-background-primary-color;
+  padding: 20px 0 10px;
+
+  .form-group {
+    margin: 0;
+  }
+}
+
+.search-index {
+  .search-title{
+    background-color: @primary-color;
+    color: #fff;
+    padding: 5px;
+
+    .search-section-icon{
+      padding-right: 5px;
+      padding-left: 5px;
+    }
+  }
+
+  .list-view {
+    background-color: #ededed;
+    //padding: 15px;
+    margin-bottom: 20px;
+
+    .pagination{
+      border-top: 1px solid @white-color;
+      padding-top: @padding-default;
+      width: 100%;
+      text-align: center;
+    }
+
+    div[data-role=list-view] {
+      > div {
+        width: 100%;
+        float: left;
+
+        &:nth-child(even) {
+          background-color: #ffffff;
+        }
+      }
+    }
+
+    .listview-container{
+      margin-bottom: 0;
+      padding: 10px 0;
+      min-height: 70px;
+
+      .post-horizontal {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        align-items: center;
+
+        @media(max-width: 767px) {
+          flex-wrap: wrap;
+
+          > div:first-child img {
+            margin: auto;
+          }
+
+          > div:nth-child(2) {
+            text-align: center;
+          }
+        }
+
+        img {
+          max-height: 70px;
+        }
+        .publication-date{
+          margin: 0;
+        }
+        .post-content .post-title h2{
+          margin: 0;
+        }
+        .search-box{ /* center icon and img */
+          text-align: center;
+          img{
+            margin: 0 auto;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+    "name": "lispa/amos-search",
+    "description": "Amos Search",
+    "keywords": [
+        "amos",
+        "search"
+    ],
+    "homepage": "http://www.lispa.it/",
+    "type": "component",
+    "require": {
+        "php": ">=5.4.0",
+        "lispa/amos-core" : "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "lispa\\amos\\search\\": "src"
+        }
+    },
+    "fxp-asset": {
+        "installer-paths": {
+            "npm-asset-library": "vendor/npm",
+            "bower-asset-library": "vendor/bower"
+        }
+    }
+}

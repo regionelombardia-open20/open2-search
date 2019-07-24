@@ -19,7 +19,7 @@ IMPORT AMOS-LAYOUT VARIABLES
     font-weight: bold;
     font-size: 1.5em;
 
-    @media(min-width: 768px) {
+    @media (min-width: 768px) {
       margin-top: 10px;
       float: right;
     }
@@ -38,21 +38,22 @@ IMPORT AMOS-LAYOUT VARIABLES
 .container-searchBar {
   background: @light-background-primary-color;
   padding: 20px 0 10px;
-
+  margin: 0;
   .form-group {
     margin: 0;
   }
 }
 
 .search-index {
-  .search-title{
+  .search-title {
     background-color: @primary-color;
     color: #fff;
     padding: 5px;
 
-    .search-section-icon{
+    .search-section-icon {
       padding-right: 5px;
       padding-left: 5px;
+      color: @white-color;
     }
   }
 
@@ -61,7 +62,7 @@ IMPORT AMOS-LAYOUT VARIABLES
     //padding: 15px;
     margin-bottom: 20px;
 
-    .pagination{
+    .pagination {
       border-top: 1px solid @white-color;
       padding-top: @padding-default;
       width: 100%;
@@ -79,7 +80,7 @@ IMPORT AMOS-LAYOUT VARIABLES
       }
     }
 
-    .listview-container{
+    .listview-container {
       margin-bottom: 0;
       padding: 10px 0;
       min-height: 70px;
@@ -90,7 +91,7 @@ IMPORT AMOS-LAYOUT VARIABLES
         display: flex;
         align-items: center;
 
-        @media(max-width: 767px) {
+        @media (max-width: 767px) {
           flex-wrap: wrap;
 
           > div:first-child img {
@@ -105,15 +106,15 @@ IMPORT AMOS-LAYOUT VARIABLES
         img {
           max-height: 70px;
         }
-        .publication-date{
+        .publication-date {
           margin: 0;
         }
-        .post-content .post-title h2{
+        .post-content .post-title h2 {
           margin: 0;
         }
-        .search-box{ /* center icon and img */
+        .search-box { /* center icon and img */
           text-align: center;
-          img{
+          img {
             margin: 0 auto;
           }
         }

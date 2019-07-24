@@ -9,11 +9,15 @@ Pjax::begin([
     'id' => 'pjax-'.$moduleName
 ]);
 
+$queryString = \yii\helpers\HtmlPurifier::process(trim($queryString));
+$tagIds = \yii\helpers\HtmlPurifier::process(trim($tagIds));
+
 echo $this->render('_pjaxForm', [
     'moduleName' => $moduleName,
     'tagIds' => $tagIds,
     'queryString' => $queryString,
-    'originAction' => Yii::$app->controller->action->id
+    'originAction' => Yii::$app->controller->action->id,
+    'modelSearch' => $modelSearch
 ]);
 
 if ($dataProvider->getTotalCount() > 0) {

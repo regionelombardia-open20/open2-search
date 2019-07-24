@@ -23,16 +23,20 @@ use lispa\amos\search\AmosSearch;
 /** @var \lispa\amos\documenti\controllers\DocumentiController $controller */
 
 
+
 $this->params['breadcrumbs'][] = ['label' => Yii::$app->session->get('previousTitle'), 'url' => Yii::$app->session->get('previousUrl')];
 $this->params['breadcrumbs'][] = AmosSearch::t('amossearch', '#search_title');
+
+$queryString = \yii\helpers\HtmlPurifier::process(trim($queryString));
+$tagIds = \yii\helpers\HtmlPurifier::process(trim($tagIds));
 
 echo $this->render('_search', [
     'tagIds' => $tagIds,
     'queryString' => $queryString,
-    'originAction' => Yii::$app->controller->action->id
+    'originAction' => Yii::$app->controller->action->id,
+    'modelSearch' => $modelSearch
 ]);
 ?>
-
 <div class="row">
     <div class="col-xs-12 results-info">
         <span id="results-info" data-i18n="<?= AmosSearch::t('amossearch','Sono stati trovati <strong>#NUMEL#</strong> elementi') ?>"></span>
@@ -42,7 +46,6 @@ echo $this->render('_search', [
     <div class="list_view">
     <?php
     foreach($searchModels as $moduleName => $moduleConfigs){
-
         Pjax::begin([
             'id' => 'pjax-'.$moduleName, // checked id on the inspect element
             'options' => ['class' => 'pjax-container clearfix'],
@@ -54,6 +57,7 @@ echo $this->render('_search', [
             'moduleName' => $moduleName,
             'queryString' => $queryString,
             'tagIds' => $tagIds,
+            'modelSearch' => $modelSearch,
             'originAction' => Yii::$app->controller->action->id
         ]);
 

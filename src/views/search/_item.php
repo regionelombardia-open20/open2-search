@@ -63,7 +63,7 @@ use lispa\amos\core\helpers\Html;
                 <div class="row nom post-wrap">
                     <div class="post-text col-xs-12">
                         <?php
-                        $contentText = substr(strip_tags($model->abstract),1,255);
+                        $contentText = substr(strip_tags($model->abstract),0,255);
                         if($contentText){
                             $contentText .= '...';
                         }

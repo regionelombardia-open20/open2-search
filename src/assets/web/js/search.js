@@ -12,8 +12,18 @@ var callPjax = function () {
         var form = pjaxForms.shift();
         var queryString = $('#formSearch').find('#queryString').val();
         var tagIds = $('#formSearch').find('#tagIds').val();
+        var tagValuesArray = [];
+        $('#formSearch').find('input[name^="GeneralSearch[tagValues]"]').each(function(){
+            if($(this).val().length > 0){
+                tagValuesArray.push($(this).val());
+            }
+        });
+        var tagValues = tagValuesArray.join(',');
+        tagValuesArray = [];
+
         form.find('input[name=queryString]').val(queryString);
         form.find('input[name=tagIds]').val(tagIds);
+        form.find('input[name=tagValues]').val(tagValues);
         form.on('submit', function(event) {
             event.preventDefault();
             $.pjax.submit(event, "#" + form.parent().attr('id'));
@@ -50,12 +60,13 @@ $(window).on('load', function () {
         event.preventDefault();
 
         var queryString = $('#formSearch').find('#queryString').val();
+        var tagValues = $('#formSearch').find('input[name^="GeneralSearch[tagValues]"]').serialize();
 
         var message = $('#query-info').attr('data-i18n');
         $('#query-info').html(message.replace('{queryString}',queryString));
 
-        if (queryString.length) {
-            history.pushState({}, '', '/search/search/index?queryString='+encodeURI(queryString));
+        if (queryString.length >0 || tagValues.length > 0) {
+            history.pushState({}, '', '/search/search/index?queryString='+encodeURI(queryString)+'&'+tagValues);
             $('.loading').show();
             retrieveForms();
             callPjax();
@@ -68,11 +79,11 @@ $(window).on('load', function () {
             callPjax();
         }
     });
+
     $('.search-index .pjax-container').on('pjax:end', callPjax);
     
     if (queryString || tagIds) {
         $('.loading').show();
         callPjax();
     }
-
 });

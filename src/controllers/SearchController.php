@@ -10,6 +10,7 @@
 
 namespace lispa\amos\search\controllers;
 
+use lispa\amos\search\models\GeneralSearch;
 use Yii;
 use lispa\amos\core\controllers\BackendController;
 use lispa\amos\search\assets\SearchAsset;
@@ -76,6 +77,7 @@ class SearchController extends BackendController
     {
 
         Url::remember();
+        $modelSearch = new GeneralSearch();
         $searchModule = Yii::$app->getModule('search');
         if(!$searchModule->enableNetworkScope) {
             $moduleCwh = Yii::$app->getModule('cwh');
@@ -84,7 +86,7 @@ class SearchController extends BackendController
             }
         }
         $modulesToSearch = $searchModule->modulesToSearch;
-        // tag research must not include users
+        $modelSearch->load(\Yii::$app->request->get());
 
         if (!empty($tagIds) && array_key_exists('admin', $modulesToSearch)) {
             $admin['admin']  = $modulesToSearch['admin'];
@@ -107,12 +109,16 @@ class SearchController extends BackendController
                 'tagIds' => $tagIds,
                 'searchModels' => $modulesToSearch,
                 'moduleName' => $moduleName ? $moduleName : null,
+                'modelSearch' => $modelSearch
         ]);
     }
 
     public function actionDoSearch($layout = null, $queryString = null, $moduleName = null, $tagIds = null)
     {
         Url::remember();
+        $modelSearch = new GeneralSearch();
+        $modelSearch->load(\Yii::$app->request->get());
+
 
         $searchModule = Yii::$app->getModule('search');
         if(!$searchModule->enableNetworkScope) {
@@ -130,9 +136,11 @@ class SearchController extends BackendController
         $modelLabel = $currentModelSearch->getGrammar()->getModelLabel();
 
         if (!empty($tagIds)) {
-            $dataProvider = $currentModelSearch->globalSearchTags($tagIds);
+            $arrayTagIds = explode(',',$tagIds);
+            $dataProvider = $currentModelSearch->globalSearchTags($arrayTagIds);
         } else {
             $dataProvider = $currentModelSearch->globalSearch($searchParamsArray);
+
         }
 
         if (Yii::$app->request->isPjax) {
@@ -143,6 +151,7 @@ class SearchController extends BackendController
                     'tagIds' => $tagIds,
                     'moduleName' => $moduleName ? $moduleName : null,
                     'modelLabel' => $modelLabel ? $modelLabel : null,
+                    'modelSearch' => $modelSearch
             ]);
         } else {
             // La richiesta non è Pjax. Faccio redirect alla search index passando la query string.

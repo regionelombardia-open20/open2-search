@@ -1,19 +1,19 @@
 {
-    "name": "lispa/amos-search",
+    "name": "open20/amos-search",
     "description": "Amos Search",
     "keywords": [
         "amos",
         "search"
     ],
-    "homepage": "http://www.lispa.it/",
+    "homepage": "http://www.open20.it/",
     "type": "component",
     "require": {
         "php": ">=5.4.0",
-        "lispa/amos-core": ">=1.9.57"
+        "open20/amos-core": ">=1.9.57"
     },
     "autoload": {
         "psr-4": {
-            "lispa\\amos\\search\\": "src"
+            "open20\\amos\\search\\": "src"
         }
     },
     "fxp-asset": {

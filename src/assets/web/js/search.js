@@ -1,5 +1,5 @@
 /* 
- * To change this proscription header, choose Proscription Headers in Project Properties.
+ * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
@@ -60,10 +60,11 @@ $(window).on('load', function () {
         event.preventDefault();
 
         var queryString = $('#formSearch').find('#queryString').val();
+        var filteredQueryString = queryString.replace(/(<([^>]+)>)/ig,"");
         var tagValues = $('#formSearch').find('input[name^="GeneralSearch[tagValues]"]').serialize();
 
         var message = $('#query-info').attr('data-i18n');
-        $('#query-info').html(message.replace('{queryString}',queryString));
+        $('#query-info').html(message.replace('{queryString}',filteredQueryString));
 
         if (queryString.length >0 || tagValues.length > 0) {
             history.pushState({}, '', '/search/search/index?queryString='+encodeURI(queryString)+'&'+tagValues);

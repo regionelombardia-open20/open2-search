@@ -1,23 +1,23 @@
 <?php
 /**
- * Lombardia Informatica S.p.A.
+ * Aria S.p.A.
  * OPEN 2.0
  *
  *
- * @package    lispa\amos\search\controllers
+ * @package    open20\amos\search\controllers
  * @category   CategoryName
  */
 
-namespace lispa\amos\search\controllers;
+namespace open20\amos\search\controllers;
 
-use lispa\amos\dashboard\controllers\base\DashboardController;
+use open20\amos\dashboard\controllers\base\DashboardController;
 
 class DefaultController extends DashboardController
 {
     /**
      * @var string $layout Layout per la dashboard interna.
      */
-    public $layout = "@vendor/lispa/amos-core/views/layouts/dashboard_interna";
+    public $layout = "@vendor/open20/amos-core/views/layouts/dashboard_interna";
     
     /**
      * @return string|\yii\web\Response

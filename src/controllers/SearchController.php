@@ -1,19 +1,19 @@
 <?php
 /**
- * Lombardia Informatica S.p.A.
+ * Aria S.p.A.
  * OPEN 2.0
  *
  *
- * @package    lispa\amos\search\controllers
+ * @package    open20\amos\search\controllers
  * @category   CategoryName
  */
 
-namespace lispa\amos\search\controllers;
+namespace open20\amos\search\controllers;
 
-use lispa\amos\search\models\GeneralSearch;
+use open20\amos\search\models\GeneralSearch;
 use Yii;
-use lispa\amos\core\controllers\BackendController;
-use lispa\amos\search\assets\SearchAsset;
+use open20\amos\core\controllers\BackendController;
+use open20\amos\search\assets\SearchAsset;
 use yii\filters\AccessControl;
 use yii\filters\AccessRule;
 use yii\filters\VerbFilter;
@@ -22,7 +22,7 @@ use yii\helpers\Url;
 
 /**
  * Class SearchController
- * @package lispa\amos\search\controllers
+ * @package open20\amos\search\controllers
  */
 class SearchController extends BackendController
 {
@@ -75,6 +75,10 @@ class SearchController extends BackendController
 
     public function actionIndex($layout = null, $queryString = null, $tagIds = null, $moduleName = null)
     {
+        /*
+        pr('here');
+        die();
+        */
 
         Url::remember();
         $modelSearch = new GeneralSearch();
@@ -86,7 +90,21 @@ class SearchController extends BackendController
             }
         }
         $modulesToSearch = $searchModule->modulesToSearch;
+        //controllo dentro la queryString se vengono passati tags o caratteri che eseguono codice esterno
+        //$toFilterRequest = \Yii::$app->request->get();
+        //$filteredRequest = $modelSearch->filterRequest($toFilterRequest);
+        /*
+        pr($filteredRequest);
+        die();
+        */
+        //$modelSearch->load($filteredRequest);
         $modelSearch->load(\Yii::$app->request->get());
+
+        /*
+        pr(\Yii::$app->request->get());
+        die();
+        */
+              
 
         if (!empty($tagIds) && array_key_exists('admin', $modulesToSearch)) {
             $admin['admin']  = $modulesToSearch['admin'];
@@ -115,11 +133,43 @@ class SearchController extends BackendController
 
     public function actionDoSearch($layout = null, $queryString = null, $moduleName = null, $tagIds = null)
     {
+        /*
+        pr('here');
+        die();
+        */
+
+        /*
+        pr(\Yii::$app->request->get());
+        die();
+        */
+        //pr($layout);
+        //pr($queryString, 'test');
+        //die();
+
         Url::remember();
         $modelSearch = new GeneralSearch();
+
+        /*
+        $toFilterRequest = \Yii::$app->request->get();
+        $filteredRequest = $modelSearch->filterRequest($toFilterRequest);
+        $queryString = $modelSearch->filterRequest();
+        */
+
+        /*
+        pr($filteredRequest);
+        pr($queryString);
+        die();
+        */
+        
+        
+        //$modelSearch->load($filteredRequest);
+        
+        /*
+        pr($test, 'test2');
+        die();
+        */
+
         $modelSearch->load(\Yii::$app->request->get());
-
-
         $searchModule = Yii::$app->getModule('search');
         if(!$searchModule->enableNetworkScope) {
             $moduleCwh = Yii::$app->getModule('cwh');
@@ -127,6 +177,8 @@ class SearchController extends BackendController
                 $moduleCwh->resetCwhScopeInSession();
             }
         }
+
+
 
         $searchParamsArray = !empty($queryString) ? explode(" ", $queryString) : [];
 
@@ -144,6 +196,7 @@ class SearchController extends BackendController
         }
 
         if (Yii::$app->request->isPjax) {
+           
             return $this->render('doSearch',
                     [
                     'dataProvider' => $dataProvider,
@@ -154,6 +207,7 @@ class SearchController extends BackendController
                     'modelSearch' => $modelSearch
             ]);
         } else {
+            //die('not pjax');
             // La richiesta non è Pjax. Faccio redirect alla search index passando la query string.
             return $this->redirect(['/search/search/index', 'queryString' => $queryString, 'tagIds' => $tagIds, 'moduleName' => $moduleName]);
         }

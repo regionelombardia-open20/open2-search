@@ -1,26 +1,26 @@
 <?php
 
 /**
- * Lombardia Informatica S.p.A.
+ * Aria S.p.A.
  * OPEN 2.0
  *
  *
- * @package    lispa\amos\search\views\search
+ * @package    open20\amos\search\views\search
  * @category   CategoryName
  */
 
 
 use yii\widgets\Pjax;
-use lispa\amos\search\AmosSearch;
+use open20\amos\search\AmosSearch;
 
 /**
  * @var yii\web\View $this
  * @var yii\data\ActiveDataProvider $dataProvider
- * @var lispa\amos\documenti\models\search\DocumentiSearch $model
- * @var \lispa\amos\dashboard\models\AmosUserDashboards $currentDashboard
+ * @var open20\amos\documenti\models\search\DocumentiSearch $model
+ * @var \open20\amos\dashboard\models\AmosUserDashboards $currentDashboard
  */
 
-/** @var \lispa\amos\documenti\controllers\DocumentiController $controller */
+/** @var \open20\amos\documenti\controllers\DocumentiController $controller */
 
 
 
@@ -28,7 +28,14 @@ $this->params['breadcrumbs'][] = ['label' => Yii::$app->session->get('previousTi
 $this->params['breadcrumbs'][] = AmosSearch::t('amossearch', '#search_title');
 
 $queryString = \yii\helpers\HtmlPurifier::process(trim($queryString));
+$queryString = strip_tags($queryString);
+$queryString = addslashes($queryString);
+
 $tagIds = \yii\helpers\HtmlPurifier::process(trim($tagIds));
+$tagIds = strip_tags($tagIds);
+$tagIds = addslashes($tagIds);
+
+
 
 echo $this->render('_search', [
     'tagIds' => $tagIds,
@@ -36,6 +43,7 @@ echo $this->render('_search', [
     'originAction' => Yii::$app->controller->action->id,
     'modelSearch' => $modelSearch
 ]);
+
 ?>
 <div class="row">
     <div class="col-xs-12 results-info">

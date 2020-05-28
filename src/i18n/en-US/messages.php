@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Lombardia Informatica S.p.A.
+ * Aria S.p.A.
  * OPEN 2.0
  *
  *
- * @package    lispa\amos\documenti\i18n\en-GB
+ * @package    open20\amos\documenti\i18n\en-GB
  * @category   CategoryName
  */
 return [

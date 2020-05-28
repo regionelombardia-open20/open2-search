@@ -1,24 +1,24 @@
 <?php
 
 /**
- * Lombardia Informatica S.p.A.
+ * Aria S.p.A.
  * OPEN 2.0
  *
  *
- * @package    lispa\amos\search
+ * @package    open20\amos\search
  * @category   CategoryName
  */
 
-namespace lispa\amos\search;
+namespace open20\amos\search;
 
-use lispa\amos\core\module\AmosModule;
-use lispa\amos\core\module\ModuleInterface;
+use open20\amos\core\module\AmosModule;
+use open20\amos\core\module\ModuleInterface;
 
 use Yii;
 
 /**
  * Class AmosSearch
- * @package lispa\amos\search
+ * @package open20\amos\search
  */
 class AmosSearch extends AmosModule implements ModuleInterface
 {
@@ -33,7 +33,7 @@ class AmosSearch extends AmosModule implements ModuleInterface
     
     public $name = 'Search';
     
-    public $controllerNamespace = 'lispa\amos\search\controllers';
+    public $controllerNamespace = 'open20\amos\search\controllers';
     
     public $config = [];
     
@@ -59,7 +59,7 @@ class AmosSearch extends AmosModule implements ModuleInterface
     {
         parent::init();
         
-        \Yii::setAlias('@lispa/amos/' . static::getModuleName() . '/controllers/', __DIR__ . '/controllers/');
+        \Yii::setAlias('@open20/amos/' . static::getModuleName() . '/controllers/', __DIR__ . '/controllers/');
         
         // initialize the module with the configuration loaded from config.php
         $config = require(__DIR__ . DIRECTORY_SEPARATOR . self::$CONFIG_FOLDER . DIRECTORY_SEPARATOR . 'config.php');
@@ -71,12 +71,13 @@ class AmosSearch extends AmosModule implements ModuleInterface
     
     private function loadEnabledModules(){
         foreach($this->config['modulesEnabled'] as $module){
-            if(class_exists($module) && in_array('lispa\amos\core\interfaces\SearchModuleInterface',class_implements($module))){
-                $modelName = $module::getModuleName();
-                if(!empty(Yii::$app->getModule($modelName))) {
+            if(class_exists($module) && in_array('open20\amos\core\interfaces\SearchModuleInterface',class_implements($module))){
+                $moduleName = $module::getModuleName();
+                $module = Yii::$app->getModule($moduleName);
+                if(!empty($module)) {
                     $modelSearchClass = $module::getModelSearchClassName();
-                    if ($modelName && $modelSearchClass) {
-                        $this->modulesToSearch[$modelName] = $modelSearchClass;
+                    if ($moduleName && $modelSearchClass) {
+                        $this->modulesToSearch[$moduleName] = $modelSearchClass;
                     }
                 }
             }

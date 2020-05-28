@@ -1,8 +1,17 @@
 <?php
 
-use lispa\amos\core\views\ListView;
-use lispa\amos\core\icons\AmosIcons;
-use lispa\amos\search\AmosSearch;
+/**
+ * Aria S.p.A.
+ * OPEN 2.0
+ *
+ *
+ * @package    Open20Package
+ * @category   CategoryName
+ */
+
+use open20\amos\core\views\ListView;
+use open20\amos\core\icons\AmosIcons;
+use open20\amos\search\AmosSearch;
 use yii\widgets\Pjax;
 
 Pjax::begin([
@@ -11,6 +20,17 @@ Pjax::begin([
 
 $queryString = \yii\helpers\HtmlPurifier::process(trim($queryString));
 $tagIds = \yii\helpers\HtmlPurifier::process(trim($tagIds));
+
+
+$queryString = strip_tags($queryString);
+$queryString = addslashes($queryString);
+$tagIds = strip_tags($tagIds);
+$tagIds = addslashes($tagIds);
+
+/*
+pr($queryString);
+die();
+*/
 
 echo $this->render('_pjaxForm', [
     'moduleName' => $moduleName,

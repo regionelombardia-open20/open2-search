@@ -1,16 +1,16 @@
 <?php
 
 /**
- * Lombardia Informatica S.p.A.
+ * Aria S.p.A.
  * OPEN 2.0
  *
  *
- * @package    lispa\amos\search
+ * @package    open20\amos\search
  * @category   CategoryName
  */
-use lispa\amos\core\icons\AmosIcons;
-use lispa\amos\core\module\BaseAmosModule;
-use lispa\amos\core\helpers\Html;
+use open20\amos\core\icons\AmosIcons;
+use open20\amos\core\module\BaseAmosModule;
+use open20\amos\core\helpers\Html;
 ?>
 <div class="listview-container">
     <div class="post-horizontal">
@@ -30,7 +30,7 @@ use lispa\amos\core\helpers\Html;
                     $urlImage = '/img/img_default.jpg';
 
                     if (!is_null($model->immagine)) {
-                        if(is_a($model->immagine , '\lispa\amos\attachments\models\File')){
+                        if(is_a($model->immagine , '\open20\amos\attachments\models\File')){
                             $urlImage = $model->immagine->getUrl('square_medium', false, true);
                         }else{
                             $urlImage = $model->immagine;

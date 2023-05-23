@@ -58,15 +58,16 @@ class AmosSearch extends AmosModule implements ModuleInterface
     public function init()
     {
         parent::init();
-        
-        \Yii::setAlias('@open20/amos/' . static::getModuleName() . '/controllers/', __DIR__ . '/controllers/');
-        
-        // initialize the module with the configuration loaded from config.php
-        $config = require(__DIR__ . DIRECTORY_SEPARATOR . self::$CONFIG_FOLDER . DIRECTORY_SEPARATOR . 'config.php');
-        
-        Yii::configure($this,$config);
-        
-        $this->loadEnabledModules();
+        if(!(\Yii::$app instanceof \yii\console\Application)){
+            \Yii::setAlias('@open20/amos/' . static::getModuleName() . '/controllers/', __DIR__ . '/controllers/');
+
+            // initialize the module with the configuration loaded from config.php
+            $config = require(__DIR__ . DIRECTORY_SEPARATOR . self::$CONFIG_FOLDER . DIRECTORY_SEPARATOR . 'config.php');
+
+            Yii::configure($this,$config);
+
+            $this->loadEnabledModules();
+        }
     }
     
     private function loadEnabledModules(){
